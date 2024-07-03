@@ -1,0 +1,87 @@
+---
+title: Check Username Availability
+sidebarTitle: Check Username
+---
+
+Before creating a user, you may want to check if a desired username is available. You can do this by sending a query to the GraphQL endpoint. The query should be in the following format:
+
+| Parameter | Description                            | Type   |
+| --------- | -------------------------------------- | ------ |
+| username  | The username to check for availability | String |
+
+```graphql
+# Query
+query CheckUsernameAvailability($username: String!) {
+  checkUsernameAvailability(username: $username)
+}
+```
+
+This query checks if the specified username is available for use. Here's a working example of how you can use this query with Axios in Node.js:
+
+<RequestExample>
+
+```javascript Node.js
+import axios from "axios";
+
+const didName = "YOUR_DESIRED_USERNAME";
+
+let headersList = {
+  Accept: "*/*",
+  "x-api-key": "YOUR_API_KEY",
+  "Content-Type": "application/json",
+};
+
+let checkUsernameAvailabilityQuery = {
+  query: `query CheckUsernameAvailability($username: String!) {
+    checkUsernameAvailability(username: $username)
+  }`,
+  variables: { username: didName },
+};
+
+let bodyContent = JSON.stringify(checkUsernameAvailabilityQuery);
+
+let reqOptions = {
+  url: "https://v3-dev.protocol.mygateway.xyz/graphql",
+  method: "POST",
+  headers: headersList,
+  data: bodyContent,
+};
+
+try {
+  let response = await axios.request(reqOptions);
+  console.log(response.data);
+} catch (error) {
+  console.error("Error checking username availability:", error);
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json
+{
+  "data": {
+    "checkUsernameAvailability": true
+  }
+}
+```
+
+</ResponseExample>
+
+Make sure to replace the following placeholders with your actual values:
+
+- `YOUR_API_KEY`: Your API key
+- `YOUR_DESIRED_USERNAME`: The username you want to check
+
+The response will contain a boolean value:
+
+- `true` if the username is available
+- `false` if the username is already taken
+
+You can use this query before attempting to create a new user to ensure that the chosen username is available. If the username is not available, you may want to prompt the user to choose a different username before proceeding with user creation.
+
+<Note>
+  In this example, the `didName` variable is used as the username to check. Make
+  sure to set this variable to the desired username before making the request.
+</Note>

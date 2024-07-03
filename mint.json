@@ -252,7 +252,8 @@
           "group": "User",
           "pages": [
             "v3/api-reference/user/createUserNonce",
-            "v3/api-reference/user/createUser"
+            "v3/api-reference/user/createUser",
+            "v3/api-reference/user/checkUserNameAvailability"
           ]
         }
       ]
