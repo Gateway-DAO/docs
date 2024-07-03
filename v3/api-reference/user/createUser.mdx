@@ -1,0 +1,103 @@
+---
+title: Creating a User
+sidebarTitle: Create User
+---
+
+<Note>
+  The following example uses the private key to sign the nonce on the client
+  side. **Recommended** way is to use a Signer or Wallet object to sign the
+  nonce on the client side and send the signature to the server. 
+  
+  Use the libraries such as [Wagmi](https://wagmi.sh/core/api/actions/signMessage#message), [SolanaWeb3.js](https://solanacookbook.com/references/keypairs-and-wallets.html#react) or [Viem](https://viem.sh/docs/accounts/signMessage#message) to sign the nonce using the Wallet object.
+
+    The following example is for demonstration purposes only.
+
+</Note>
+
+After obtaining a nonce using the [Create User Nonce](/v3/api-reference/user/createUserNonce) mutation, you can create a user by signing the nonce and sending a mutation to the GraphQL endpoint. The mutation should be in the following format:
+
+| Parameter  | Description                    | Type   |
+| ---------- | ------------------------------ | ------ |
+| signature  | The signature of the nonce     | String |
+| signingKey | The wallet address of the user | String |
+
+```graphql
+# Query
+mutation createUser($wallet: String!, $signature: String!) {
+  createUser(signature: $signature, signingKey: $wallet)
+}
+```
+
+You need to sign the nonce obtained from the `createUserNonce` mutation and pass the signature along with the wallet address. Here's an example of how you can do this using Axios and ethers in Node.js:
+
+<RequestExample>
+
+```javascript Node.js
+import axios from "axios";
+import { ethers } from "ethers";
+
+// Assume we have already obtained the nonce from createUserNonce mutation
+const nonce = "NONCE_FROM_PREVIOUS_STEP";
+
+// Create or import your wallet
+const wallet = new ethers.Wallet("YOUR_PRIVATE_KEY");
+
+// Sign the nonce
+const signature = await wallet.signMessage(nonce);
+
+let headersList = {
+  Accept: "*/*",
+  "x-api-key": "YOUR_API_KEY",
+  "Content-Type": "application/json",
+};
+
+let createUserMutation = {
+  query: `mutation($wallet: String!, $signature: String!) {
+    createUser(
+        signature: $signature,
+        signingKey: $wallet
+    )
+}`,
+  variables: { wallet: wallet.address, signature },
+};
+
+let bodyContent = JSON.stringify(createUserMutation);
+
+let reqOptions = {
+  url: "https://v3-dev.protocol.mygateway.xyz/graphql",
+  method: "POST",
+  headers: headersList,
+  data: bodyContent,
+};
+
+let response = await axios.request(reqOptions);
+
+console.log(response.data);
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json
+{
+  "data": {
+    "createUser": "YOUR_AUTH_TOKEN"
+  }
+}
+```
+
+</ResponseExample>
+
+Make sure to replace the following placeholders with your actual values:
+
+- `YOUR_PRIVATE_KEY`: Your wallet's private key (keep this secure!)
+- `YOUR_API_KEY`: Your API key
+- `NONCE_FROM_PREVIOUS_STEP`: The nonce obtained from the `createUserNonce` mutation
+
+The response will contain an authentication token, which can be used for subsequent authenticated requests to the API.
+
+<Warning>
+  Note: In a production environment, never expose your private key in your code.
+  Use secure methods to manage and access your private keys.
+</Warning>

@@ -1,0 +1,78 @@
+---
+title: Creating a User Nonce
+sidebarTitle: Create User Nonce
+---
+
+To create a user nonce, you need to send a mutation to the GraphQL endpoint. The mutation should be in the following format:
+
+| Parameter  | Description                                    | Type   |
+| ---------- | ---------------------------------------------- | ------ |
+| signingKey | The wallet address of the user                 | String |
+| did        | The Decentralized Identifier (DID) of the user | String |
+
+```graphql
+# Query
+mutation createUserNonce($wallet: String!) {
+  createUserNonce(input: { signingKey: $wallet, did: "YOUR_DID" })
+}
+```
+
+You need to pass in the wallet address and the DID of the user as variables. Here's an example of how you can do this using Axios in Node.js:
+
+<RequestExample>
+
+```javascript Node.js
+const axios = require("axios");
+
+let data = JSON.stringify({
+  query: `mutation($wallet: String!, $did: String!) {
+    createUserNonce(input: {         
+        signingKey: $wallet,
+        did: $did      
+    })
+}`,
+  variables: { wallet: "YOUR_WALLET_ADDRESS", did: "YOUR_DID" },
+});
+
+let config = {
+  method: "post",
+  maxBodyLength: Infinity,
+  url: "https://v3-dev.protocol.mygateway.xyz/graphql",
+  headers: {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios
+  .request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json
+{
+  "data": {
+    "createUserNonce": "YOUR_NONCE_VALUE"
+  }
+}
+```
+
+</ResponseExample>
+
+Make sure to replace the following placeholders with your actual values:
+
+- `YOUR_DID`: Your Decentralized Identifier
+- `YOUR_WALLET_ADDRESS`: Your wallet address
+- `YOUR_API_KEY`: Your API key
+
+The response will contain the created nonce value, which can be used for further authentication or verification processes.

@@ -43,6 +43,10 @@
     {
       "name": "FAQ",
       "url": "FAQ"
+    },
+    {
+      "name": "v3",
+      "url": "v3"
     }
   ],
   "anchors": [
@@ -238,6 +242,20 @@
     {
       "group": "Frequently Asked Questions",
       "pages": ["FAQ/FAQ"]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "v3/api-reference/overview",
+        {
+          "icon": "User",
+          "group": "User",
+          "pages": [
+            "v3/api-reference/user/createUserNonce",
+            "v3/api-reference/user/createUser"
+          ]
+        }
+      ]
     }
   ],
 
