@@ -1,0 +1,61 @@
+---
+title: Authentication
+---
+
+The Gateway Protocol SDK v3 provides comprehensive authentication functionality. Here's how to use the authentication features:
+
+## Check Username Availability
+
+```typescript
+import { checkUsernameAvailabilityV3 } from "./scripts/Auth";
+
+const isAvailable = await checkUsernameAvailabilityV3("sample-username");
+console.log("Username availability:", isAvailable);
+```
+
+## Check DID Availability
+
+```typescript
+import { checkDIDAvailabilityV3 } from "./scripts/Auth";
+
+const isAvailable = await checkDIDAvailabilityV3("sample-did");
+console.log("DID availability:", isAvailable);
+```
+
+## Create User Nonce
+
+```typescript
+import { createUserNonceV3 } from "./scripts/Auth";
+
+const nonce = await createUserNonceV3({
+  did: "sample-did",
+  signingKey: "wallet-address",
+});
+console.log("User nonce:", nonce);
+```
+
+## Create User
+
+```typescript
+import { createUserV3, SignCipherEnum } from "./scripts/Auth";
+
+const user = await createUserV3({
+  signature: "sample-signature",
+  signingKey: "wallet-address",
+  signingCipher: SignCipherEnum.SECP256K1, // Optional, defaults to SECP256K1
+});
+console.log("Created user:", user);
+```
+
+## Login User
+
+```typescript
+import { loginUserV3 } from "./scripts/Auth";
+
+const loginResult = await loginUserV3({
+  did: "sample-did",
+  signature: "sample-signature",
+  signingKey: "wallet-address",
+});
+console.log("Login result:", loginResult);
+```

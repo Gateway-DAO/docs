@@ -1,0 +1,111 @@
+---
+title: Introduction to Gateway Protocol SDK v3
+---
+
+Gateway Protocol v3 provides an enhanced SDK for seamless integration with the protocol. This new version offers improved functionality for:
+
+<ol>
+  <li>Authentication and User Management</li>
+  <li>Creating and Managing Data Models</li>
+  <li>Issuing and Managing PDAs (Personal Data Assets)</li>
+  <li>Handling Data Requests</li>
+  <li>Organization Management</li>
+  <li>Activity Tracking</li>
+  <li>Proof Creation</li>
+</ol>
+
+This documentation is based on the **3.0.0** version of the Gateway Protocol SDK.
+
+## Requirements
+
+<ol>
+  <li>Basic knowledge of JavaScript/TypeScript</li>
+  <li>Node.js v18 or later and npm installed on your machine</li>
+  <li>A Gateway Protocol account with API credentials</li>
+</ol>
+
+## Getting Started
+
+To initialize the Gateway SDK, use the following code:
+
+```typescript
+import { Gateway, SignCipherEnum } from "@gateway-dao/sdk";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const gatewayInstanceV3 = new Gateway({
+  url: "https://v3-dev.protocol.mygateway.xyz/graphql",
+  apiKey: process.env.V3_API_KEY!,
+  token: process.env.V3_TOKEN!,
+  walletPrivateKey: process.env.WALLET_PRIVATE_KEY!,
+});
+```
+
+For Solana-based wallets, specify the `walletType`:
+
+```typescript
+export const gatewayInstanceV3 = new Gateway({
+  // ... other options
+  walletType: SignCipherEnum.ED25519,
+});
+```
+
+## Key Features
+
+### Authentication
+
+- Check username and DID availability
+- Create user nonce
+- Create and login users
+
+### Data Models
+
+- Create and retrieve data models
+- Get data model counts and metadata
+- Retrieve issuers by data model
+
+### Personal Data Assets (PDAs)
+
+- Create, update, and change status of PDAs
+- Retrieve PDAs
+- Create file-based PDAs
+
+### Data Requests
+
+- Create and retrieve data requests
+- Get data request counts and status
+- Retrieve sent and received requests
+
+### Organizations
+
+- Create and update organizations
+- Manage organization members
+
+### Activities
+
+- Retrieve activities and activity counts
+
+### Proofs
+
+- Create proofs for PDAs
+
+## Examples
+
+Here are some example uses of the SDK:
+
+```typescript
+// Create a PDA
+const { createPDA } = await createPDAV3();
+
+// Create a Data Model
+const { createDataModel } = await createDataModelV3();
+
+// Create a Data Request
+const { createDataRequest } = await createDataRequestV3(createDataModel.id);
+
+// Create an Organization
+const { createOrganization } = await createOrganizationV3();
+```
+
+For more detailed examples, please refer to the individual sections in the documentation.

@@ -1,0 +1,69 @@
+---
+title: Personal Data Assets (PDAs)
+---
+
+Personal Data Assets (PDAs) are a core concept in the Gateway Protocol. Here's how to work with PDAs using the SDK v3:
+
+## Create a PDA
+
+```typescript
+import { createPDAV3 } from "./scripts/PDA";
+
+const { createPDA } = await createPDAV3();
+console.log("Created PDA:", createPDA);
+```
+
+## Update a PDA
+
+```typescript
+import { updatePDAV3 } from "./scripts/PDA";
+
+const updatedPDA = await updatePDAV3(
+  createPDA.id,
+  "updated title",
+  "updated description",
+  {
+    name: "updated",
+  }
+);
+console.log("Updated PDA:", updatedPDA);
+```
+
+## Change PDA Status
+
+```typescript
+import { changePDAStatusV3, PDAStatus } from "./scripts/PDA";
+
+const changedStatusPDA = await changePDAStatusV3(
+  createPDA.id,
+  PDAStatus.EXPIRED
+);
+console.log("PDA with changed status:", changedStatusPDA);
+```
+
+## Get a PDA
+
+```typescript
+import { getPDAV3 } from "./scripts/PDA";
+
+const pda = await getPDAV3(createPDA.id);
+console.log("Retrieved PDA:", pda);
+```
+
+## Get Multiple PDAs
+
+```typescript
+import { getPDASV3 } from "./scripts/PDA";
+
+const pdas = await getPDASV3();
+console.log("Retrieved PDAs:", pdas);
+```
+
+## Create a File-based PDA
+
+```typescript
+import { createFilePDAV3 } from "./scripts/PDA";
+
+const filePDA = await createFilePDAV3();
+console.log("Created File-based PDA:", filePDA);
+```

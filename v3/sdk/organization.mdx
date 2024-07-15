@@ -1,0 +1,52 @@
+---
+title: Organizations
+---
+
+Organizations play a crucial role in the Gateway Protocol. Here's how to manage organizations using the SDK v3:
+
+## Create an Organization
+
+```typescript
+import { createOrganizationV3 } from "./scripts/Organization";
+
+const { createOrganization } = await createOrganizationV3();
+console.log("Created Organization:", createOrganization);
+```
+
+## Add Member to Organization
+
+```typescript
+import { addMemberToOrganizationV3 } from "./scripts/Organization";
+
+const addedMember = await addMemberToOrganizationV3(createOrganization.did);
+console.log("Added Member:", addedMember);
+```
+
+## Change Member Role in Organization
+
+```typescript
+import { changeMemberRoleOrganizationV3 } from "./scripts/Organization";
+
+const changedRole = await changeMemberRoleOrganizationV3(
+  createOrganization.did
+);
+console.log("Changed Member Role:", changedRole);
+```
+
+## Update Organization
+
+```typescript
+import { updateOrganizationV3 } from "./scripts/Organization";
+
+const updatedOrg = await updateOrganizationV3(createOrganization.did);
+console.log("Updated Organization:", updatedOrg);
+```
+
+## Get Organization
+
+```typescript
+import { getOrganization } from "./scripts/Organization";
+
+const org = await getOrganization(createOrganization.did);
+console.log("Retrieved Organization:", org);
+```

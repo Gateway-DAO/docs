@@ -1,0 +1,32 @@
+---
+title: Activities
+---
+
+The Gateway Protocol SDK v3 provides functionality to track and retrieve activities. Here's how to work with activities:
+
+## Get an Activity
+
+```typescript
+import { getActivityV3 } from "./scripts/Activities";
+
+const activity = await getActivityV3("some-activity-id");
+console.log("Retrieved Activity:", activity);
+```
+
+## Get Multiple Activities
+
+```typescript
+import { getActivitiesV3 } from "./scripts/Activities";
+
+const activities = await getActivitiesV3();
+console.log("Retrieved Activities:", activities);
+```
+
+## Get Activities Count
+
+```typescript
+import { getActivitiesCountV3 } from "./scripts/Activities";
+
+const count = await getActivitiesCountV3();
+console.log("Activities Count:", count);
+```

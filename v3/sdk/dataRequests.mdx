@@ -1,0 +1,68 @@
+---
+title: Data Requests
+---
+
+Data Requests allow for the secure sharing of data within the Gateway Protocol. Here's how to work with Data Requests using the SDK v3:
+
+## Create a Data Request
+
+```typescript
+import { createDataRequestV3 } from "./scripts/DataRequest";
+
+const { createDataRequest } = await createDataRequestV3(dataModelId);
+console.log("Created Data Request:", createDataRequest);
+```
+
+## Get a Data Request
+
+```typescript
+import { getDataRequestV3 } from "./scripts/DataRequest";
+
+const dataRequest = await getDataRequestV3(createDataRequest.id);
+console.log("Retrieved Data Request:", dataRequest);
+```
+
+## Get Data Request Count
+
+```typescript
+import { getDataRequestCountV3 } from "./scripts/DataRequest";
+
+const count = await getDataRequestCountV3();
+console.log("Data Request Count:", count);
+```
+
+## Get Data Request Status
+
+```typescript
+import { getDataRequestStatusV3 } from "./scripts/DataRequest";
+
+const status = await getDataRequestStatusV3(createDataRequest.id);
+console.log("Data Request Status:", status);
+```
+
+## Get Multiple Data Requests
+
+```typescript
+import { getDataRequestsV3 } from "./scripts/DataRequest";
+
+const dataRequests = await getDataRequestsV3();
+console.log("Retrieved Data Requests:", dataRequests);
+```
+
+## Get Received Requests
+
+```typescript
+import { getRequestsReceivedV3 } from "./scripts/DataRequest";
+
+const receivedRequests = await getRequestsReceivedV3();
+console.log("Received Requests:", receivedRequests);
+```
+
+## Get Sent Requests
+
+```typescript
+import { getRequestsSentV3 } from "./scripts/DataRequest";
+
+const sentRequests = await getRequestsSentV3();
+console.log("Sent Requests:", sentRequests);
+```

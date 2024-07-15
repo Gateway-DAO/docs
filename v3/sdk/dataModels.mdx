@@ -1,0 +1,59 @@
+---
+title: Data Models
+---
+
+Data Models are essential for structuring the data within the Gateway Protocol. Here's how to work with Data Models using the SDK v3:
+
+## Create a Data Model
+
+```typescript
+import { createDataModelV3 } from "./scripts/DataModel";
+
+const { createDataModel } = await createDataModelV3();
+console.log("Created Data Model:", createDataModel);
+```
+
+## Get a Data Model
+
+```typescript
+import { getDataModelV3 } from "./scripts/DataModel";
+
+const dataModel = await getDataModelV3(createDataModel.id);
+console.log("Retrieved Data Model:", dataModel);
+```
+
+## Get Multiple Data Models
+
+```typescript
+import { getDataModelsV3 } from "./scripts/DataModel";
+
+const dataModels = await getDataModelsV3();
+console.log("Retrieved Data Models:", dataModels);
+```
+
+## Get Data Model Count
+
+```typescript
+import { getDataModelCountV3 } from "./scripts/DataModel";
+
+const count = await getDataModelCountV3();
+console.log("Data Model Count:", count);
+```
+
+## Get Data Models Metadata
+
+```typescript
+import { getDataModelsMetaDataV3 } from "./scripts/DataModel";
+
+const metadata = await getDataModelsMetaDataV3();
+console.log("Data Models Metadata:", metadata);
+```
+
+## Get Issuers by Data Model
+
+```typescript
+import { getIssuersByDataModelV3 } from "./scripts/DataModel";
+
+const issuers = await getIssuersByDataModelV3(createDataModel.id);
+console.log("Issuers for Data Model:", issuers);
+```

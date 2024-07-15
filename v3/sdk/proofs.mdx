@@ -1,0 +1,16 @@
+---
+title: Proofs
+---
+
+Proofs are an essential part of the Gateway Protocol for verifying claims. Here's how to create proofs using the SDK v3:
+
+## Create a Proof
+
+```typescript
+import { createProofV3 } from "./scripts/Proof";
+
+const proof = await createProofV3(pdaId, keyBlob);
+console.log("Created Proof:", proof);
+```
+
+Note: Make sure you have the necessary `pdaId` and `keyBlob` before creating a proof.
